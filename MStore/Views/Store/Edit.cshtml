@@ -1,0 +1,50 @@
+﻿@model MStore.Models.Album
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Edit";
+}
+
+    <h2>Edit</h2>
+    @using (Html.BeginForm("Edit", "Store", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.TextBoxFor(x => x.AlbumID, new { @type = "hidden"})       
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.Label("Album Adı", new { @class = "col-md-2 control-label" })
+            @*@Html.TextBox("albumadı", @Model.Title, new { @class = "form-control" })*@
+            @Html.TextBoxFor(x => x.Title, new { @class = "form-control", required = true })
+            @*@Html.ValidationMessageFor(x => x.Title, "Albüm adı gereklidir.",new { @class = "text-danger"})*@
+        </div>
+        <div class="form-group">
+            @Html.Label("Album Turu", new { @class = "col-md-2 control-label" })
+            @*@Html.TextBox("albumturu", @Model.Genre1.Name, new { @class = "form-control" })*@
+            @Html.TextBoxFor(x => x.Genre1.Name, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.Label("Sanatcı", new { @class = "col-md-2 control-label" })
+            @*@Html.TextBox("albumturu", @Model.Genre1.Name, new { @class = "form-control" })*@
+            @Html.TextBoxFor(x => x.Artist.Name, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.Label("Ücreti", new { @class = "col-md-2 control-label" })
+            @*@Html.TextBox("albumturu", @Model.Genre1.Name, new { @class = "form-control" })*@
+            @Html.TextBoxFor(x => x.Price, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.Label("Language", new { @class = "col-md-2 control-label" })
+            @*@Html.TextBox("albumturu", @Model.Genre1.Name, new { @class = "form-control" })*@
+            @Html.TextBoxFor(x => x.lang, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Edit" class="btn btn-default" />
+
+            </div>
+        </div>
+    </div>
+
+    }
+
+
+

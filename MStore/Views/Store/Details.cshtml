@@ -1,0 +1,34 @@
+﻿@model MStore.Models.Album
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+@if (Model != null)
+{
+    <div class="col-md-2">
+        @Html.Label("Album ID")
+    </div>
+    <p>@Model.AlbumID</p>
+    <div class="col-md-2">
+        @Html.Label("Album Adı")
+    </div>
+    <p>@Model.Title</p>
+    <div class="col-md-2">
+        @Html.Label("Album Turu")
+    </div>
+    <p>@Model.Genre1.Name</p>
+    <div class="col-md-2">
+        @Html.Label("Album Ucret")
+    </div>
+    <p>@Model.Price</p>
+    <div class="col-md-2">
+        @Html.Label("Sanatçı")
+    </div>
+    <p>@Model.Artist.Name</p>
+
+}
+
+

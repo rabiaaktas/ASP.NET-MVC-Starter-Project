@@ -1,0 +1,56 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>Album Id</th>
+        <th>Album Adı</th>
+        <th>Sanatcı</th>
+        <th>Album Turu</th>
+        <th>Album Ücreti</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {   
+        <tr>
+            <td>@item.AlbumID</td>
+            <td>@item.Title</td>
+            <td>@item.Artist.Name</td>
+            <td>@item.Genre1.Name</td>
+            <td>@item.Price</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.AlbumID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.AlbumID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.AlbumID })
+                @*<a data-toggle="modal" data-target="#deleteModal">Delete</a>*@
+            </td>
+        </tr>
+
+
+
+
+        @*<div class="modal fade" id="deleteModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Delete</h4>
+                    </div>
+                    <div class="modal-body">
+                        @using (Html.BeginForm("DeleteConf", "Store", new { id = @item.AlbumID }, FormMethod.Post))
+                        {
+                            <p>@item.Title -- please confirm to delete this.</p>
+                        }
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" value="Delete" />
+                    </div>
+                </div>
+            </div>
+        </div>*@
+    }
+</table>

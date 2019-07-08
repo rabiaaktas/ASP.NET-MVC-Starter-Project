@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="formdbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Album">
+    <Key>
+      <PropertyRef Name="AlbumID" />
+    </Key>
+    <Property Name="AlbumID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GenreId" Type="int" Nullable="false" />
+    <Property Name="ArtistId" Type="int" Nullable="false" />
+    <Property Name="Title" Type="nchar" MaxLength="100" Nullable="false" />
+    <Property Name="Price" Type="money" Nullable="false" />
+    <Property Name="AlbumArtUrl" Type="nvarchar(max)" />
+    <Property Name="lang" Type="nchar" MaxLength="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Artist">
+    <Key>
+      <PropertyRef Name="ArtistID" />
+    </Key>
+    <Property Name="ArtistID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nchar" MaxLength="250" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cart">
+    <Key>
+      <PropertyRef Name="recordID" />
+    </Key>
+    <Property Name="recordID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="cartID" Type="nchar" MaxLength="200" />
+    <Property Name="AlbumId" Type="int" Nullable="false" />
+    <Property Name="count" Type="int" Nullable="false" />
+    <Property Name="createdDate" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Genre1">
+    <Key>
+      <PropertyRef Name="GenreID" />
+    </Key>
+    <Property Name="GenreID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="text" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="username" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="firstName" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="lastName" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="address" Type="text" Nullable="false" />
+    <Property Name="city" Type="text" Nullable="false" />
+    <Property Name="state" Type="text" />
+    <Property Name="postalCode" Type="nchar" MaxLength="10" />
+    <Property Name="country" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="phone" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="email" Type="nchar" MaxLength="100" Nullable="false" />
+    <Property Name="total" Type="money" Nullable="false" />
+    <Property Name="orderDate" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderDetail">
+    <Key>
+      <PropertyRef Name="OrderDetailID" />
+    </Key>
+    <Property Name="OrderDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="orderId" Type="int" Nullable="false" />
+    <Property Name="albumId" Type="int" Nullable="false" />
+    <Property Name="quantity" Type="int" Nullable="false" />
+    <Property Name="unitPrice" Type="money" Nullable="false" />
+  </EntityType>
+  <EntityType Name="personInf">
+    <Key>
+      <PropertyRef Name="personID" />
+    </Key>
+    <Property Name="personID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="personName" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="Surname" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="address" Type="text" />
+  </EntityType>
+  <Association Name="FK_Artist">
+    <End Role="Artist" Type="Self.Artist" Multiplicity="1" />
+    <End Role="Album" Type="Self.Album" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Artist">
+        <PropertyRef Name="ArtistID" />
+      </Principal>
+      <Dependent Role="Album">
+        <PropertyRef Name="ArtistId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Genre">
+    <End Role="Genre1" Type="Self.Genre1" Multiplicity="1" />
+    <End Role="Album" Type="Self.Album" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Genre1">
+        <PropertyRef Name="GenreID" />
+      </Principal>
+      <Dependent Role="Album">
+        <PropertyRef Name="GenreId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetail_Album">
+    <End Role="Album" Type="Self.Album" Multiplicity="1" />
+    <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Album">
+        <PropertyRef Name="AlbumID" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="albumId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetail_Order">
+    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="OrderID" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="orderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="formdbModelStoreContainer">
+    <EntitySet Name="Album" EntityType="Self.Album" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Artist" EntityType="Self.Artist" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Genre1" EntityType="Self.Genre1" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="personInf" EntityType="Self.personInf" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Artist" Association="Self.FK_Artist">
+      <End Role="Artist" EntitySet="Artist" />
+      <End Role="Album" EntitySet="Album" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Genre" Association="Self.FK_Genre">
+      <End Role="Genre1" EntitySet="Genre1" />
+      <End Role="Album" EntitySet="Album" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetail_Album" Association="Self.FK_OrderDetail_Album">
+      <End Role="Album" EntitySet="Album" />
+      <End Role="OrderDetail" EntitySet="OrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetail_Order" Association="Self.FK_OrderDetail_Order">
+      <End Role="Order" EntitySet="Order" />
+      <End Role="OrderDetail" EntitySet="OrderDetail" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
