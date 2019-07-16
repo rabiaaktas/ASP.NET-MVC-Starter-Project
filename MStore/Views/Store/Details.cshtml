@@ -6,29 +6,52 @@
 }
 
 <h2>Details</h2>
-@if (Model != null)
-{
-    <div class="col-md-2">
-        @Html.Label("Album ID")
-    </div>
-    <p>@Model.AlbumID</p>
-    <div class="col-md-2">
-        @Html.Label("Album Adı")
-    </div>
-    <p>@Model.Title</p>
-    <div class="col-md-2">
-        @Html.Label("Album Turu")
-    </div>
-    <p>@Model.Genre1.Name</p>
-    <div class="col-md-2">
-        @Html.Label("Album Ucret")
-    </div>
-    <p>@Model.Price</p>
-    <div class="col-md-2">
-        @Html.Label("Sanatçı")
-    </div>
-    <p>@Model.Artist.Name</p>
+@*@if (Model != null)
+    {
+        <div class="col-md-2">
+            @Html.Label("Album ID")
+        </div>
+        <p>@Model.AlbumID</p>
+        <div class="col-md-2">
+            @Html.Label("Album Adı")
+        </div>
+        <p>@Model.Title</p>
+        <div class="col-md-2">
+            @Html.Label("Album Turu")
+        </div>
+        <p>@Model.Genre1.Name</p>
+        <div class="col-md-2">
+            @Html.Label("Album Ucret")
+        </div>
+        <p>@Model.Price</p>
+        <div class="col-md-2">
+            @Html.Label("Sanatçı")
+        </div>
+        <p>@Model.Artist.Name</p>
 
-}
+    }*@
 
+<p>
+    <img alt="@Model.Title"
+         src="@Model.AlbumArtUrl" />
+</p>
+<div id="album-details">
+    <p>
+        <em>Genre:</em>
+        @Model.Genre1.Name
+    </p>
+    <p>
+        <em>Artist:</em>
+        @Model.Artist.Name
+    </p>
+    <p>
+        <em>Price:</em>
+        @String.Format("{0:F}",
+Model.Price)
+    </p>
+    <p class="button">
+        @Html.ActionLink("Add to cart", "addToCart",
+        "ShoppingCart", new { id = Model.AlbumID }, "")
+    </p>
+</div>
 

@@ -24,8 +24,17 @@
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Store", "Index", "Store")</li>
-                    <li><a href="~/">tr</a></li>
-                    <li><a href="en/Language/ChangeLanguage">en</a></li>
+                    @if (!HttpContext.Current.User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Login", "Login", "Account")</li>
+                    }
+
+                    @if (HttpContext.Current.User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
+                    }
+                    <li><a href="~/" id="language">tr</a></li>
+                    <li><a href="en/Language/ChangeLanguage" id="language">en</a></li>
                 </ul>
             </div>
         </div>
@@ -41,5 +50,12 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    @*@section Scripts{
+        <script type="text/javascript">
+            $("#language").click(function () {
+                window.location.href = @Url.Action("ChangeLanguage","Language",new { @language = "tr"})
+            })
+        </script>
+        }*@
 </body>
 </html>

@@ -12,6 +12,7 @@ namespace MStore.Controllers
         {
             return View();
         }
+       // [Authorize(Roles = "Admin")]
 
         public ActionResult About()
         {

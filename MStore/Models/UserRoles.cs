@@ -12,11 +12,13 @@ namespace MStore.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class personInf
+    public partial class UserRoles
     {
-        public int personID { get; set; }
-        public string personName { get; set; }
-        public string Surname { get; set; }
-        public string address { get; set; }
+        public int userRoleID { get; set; }
+        public int userID { get; set; }
+        public int roleId { get; set; }
+    
+        public virtual Rol Rol { get; set; }
+        public virtual User User { get; set; }
     }
 }

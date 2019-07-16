@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "ShoppingCart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts{
+    <script type="text/javascript">
+
+        $(function () {
+            $(".RemoveLink").click(function () {
+                var recordDelete = $(this).attr("data-id");
+                if (recordDelete != '') {
+                    $.post("/ShoppingCart/removeFromCart", { "id" = recordDelete }),
+                        function (data) {
+                            if (data.ItemCount == 0) {
+                                $('row-' + data.id).fadeOut('slow');
+                            }
+                            else {
+                                $("#item-count-" + data.DeleteId).text(data.ItemCount);
+                            }
+                            $('#cart-total').text(data.CartTotal);
+                            $('#update-message').text(data.Message);
+                            $('#cart-status').text('Cart (' + data.CartCount + ')');,
+                        }
+                }
+
+            });
+
+
+        });
+
+     
+                
+    </script>
+}
+
+<h2>ShoppingCart</h2>
+
+<h3>
+    <em>Review</em> your cart.
+</h3>
+
+<p class="button">
+    @Html.ActionLink("Checkout>>", "AddressAndPayment", "Checkout")
+</p>
+<table class="table">
+    <tr>
+        <th>Album Name</th>
+        <th>Price(each)</th>
+        <th>Quantity</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model.CartItems)
+    {
+        <tr id="row-@item.recordID">
+@*<td>@Html.ActionLink(@item.Album.Title, "Details", "Store", new { id = item.AlbumId})</td>*@
+    <td><a class="details" href="/tr/Store/Details/@item.Album.AlbumID">@item.Album.Title</a></td>
+    <td>@item.Album.Price</td>
+    <td id="item-count-@item.recordID">@item.count</td>
+    <td><a href="#" class="RemoveLink" data-id="@item.recordID">Remove From Cart </a></td>
+    </tr>
+    }
+    <tr>
+        <td>Total</td>
+        <td></td>
+        <td></td>
+        <td id="cartTotal">@Model.cartTotal</td>
+    </tr>
+    </table>
+
+

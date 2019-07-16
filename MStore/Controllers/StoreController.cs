@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MStore.Components;
 using MStore.Models;
 
 namespace MStore.Controllers
 {
+   
     public class StoreController : Controller
     {
         private formdbEntities db = new formdbEntities();
 
 
         // GET: Store
+        //[AllowAnonymous]
         public ActionResult Index()
         {
             var lang = RouteData.Values["language"].ToString();
@@ -52,6 +55,8 @@ namespace MStore.Controllers
         }
         //Düzenlenecek değerler.
         [HttpGet]
+       //[SessionAuthorization]  // --- Bunu yazarsak authorize olmadığı için 403 error döndürür. Çalıştırmaz.
+       
         public ActionResult Edit()
         {
             Album album = new Album();
@@ -72,7 +77,7 @@ namespace MStore.Controllers
             }
             return View(album);
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Album album)

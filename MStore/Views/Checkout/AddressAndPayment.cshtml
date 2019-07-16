@@ -1,0 +1,44 @@
+﻿@model MStore.Models.Order
+@{
+    ViewBag.Title = "AddressAndPayment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AddressAndPayment</h2>
+
+@using (@Html.BeginForm())
+{
+<fieldset>
+    <legend>Shipping Inf</legend>
+    @*@Html.EditorForModel()*@
+    @Html.Label("Name", new { @class = "control-label" })
+    @Html.TextBoxFor(x => x.firstName, new { @class = "form-control" })
+    @Html.Label("Surname", new { @class = "control-label" })
+    @Html.TextBoxFor(x => x.lastName, new { @class = "form-control" })
+    @Html.Label("Address", new { @class = "control-label" })
+    @Html.TextAreaFor(x => x.address, new { @class = "form-control" })
+    @Html.Label("City", new { @class = "control-label" })
+    @Html.TextBoxFor(x => x.city, new { @class = "form-control" })
+    @Html.Label("state", new { @class = "control-label" })
+    @Html.TextBoxFor(x => x.state, new { @class = "form-control" })
+    @Html.Label("Postal Code", new { @class = "control-label" })
+    @Html.TextBoxFor(x => x.postalCode, new { @class = "form-control" })
+    @Html.Label("Country", new { @class = "control-label" })
+    @Html.TextBoxFor(x => x.country, new { @class = "form-control" })
+    @Html.Label("Phone", new { @class = "control-label" })
+    @Html.TextBoxFor(x => x.phone, new { @class = "form-control" })
+    @Html.Label("E-ömail", new { @class = "control-label" })
+    @Html.TextBoxFor(x => x.email, new { @class = "form-control" })
+</fieldset>
+    <fieldset>
+        <legend>
+            Payment
+        </legend>
+        <div class="editorField">
+            @Html.TextBox("promoCode",new { @class = "form-control"})
+        </div>
+    </fieldset>
+    <input type="submit" value="Submit Order" />
+}
+
+

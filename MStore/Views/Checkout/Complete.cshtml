@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "Complete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Complete</h2>
+
+<p>Thanks for your order! Your order number is: @Model.OrderID</p>
+<p>
+    How about shopping for some more music in our
+    @Html.ActionLink("Store","Index", "Home")
+</p>

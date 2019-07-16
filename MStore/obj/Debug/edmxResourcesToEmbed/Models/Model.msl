@@ -72,13 +72,41 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="personInf">
-      <EntityTypeMapping TypeName="formdbModel.personInf">
-        <MappingFragment StoreEntitySet="personInf">
-          <ScalarProperty Name="personID" ColumnName="personID" />
-          <ScalarProperty Name="personName" ColumnName="personName" />
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="formdbModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="kisiId" ColumnName="kisiId" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rol">
+      <EntityTypeMapping TypeName="formdbModel.Rol">
+        <MappingFragment StoreEntitySet="Rol">
+          <ScalarProperty Name="roleName" ColumnName="roleName" />
+          <ScalarProperty Name="roleID" ColumnName="roleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserRoles">
+      <EntityTypeMapping TypeName="formdbModel.UserRoles">
+        <MappingFragment StoreEntitySet="UserRoles">
+          <ScalarProperty Name="roleId" ColumnName="roleId" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="userRoleID" ColumnName="userRoleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kisi">
+      <EntityTypeMapping TypeName="formdbModel.Kisi">
+        <MappingFragment StoreEntitySet="Kisi">
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="Surname" ColumnName="Surname" />
-          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="kisiID" ColumnName="kisiID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

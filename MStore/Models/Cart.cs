@@ -19,5 +19,7 @@ namespace MStore.Models
         public int AlbumId { get; set; }
         public int count { get; set; }
         public System.DateTime createdDate { get; set; }
+    
+        public virtual Album Album { get; set; }
     }
 }

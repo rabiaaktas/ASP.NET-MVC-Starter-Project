@@ -31,6 +31,9 @@ namespace MStore.Models
         public virtual DbSet<Genre1> Genre1 { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<OrderDetail> OrderDetail { get; set; }
-        public virtual DbSet<personInf> personInf { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Rol> Rol { get; set; }
+        public virtual DbSet<UserRoles> UserRoles { get; set; }
+        public virtual DbSet<Kisi> Kisi { get; set; }
     }
 }

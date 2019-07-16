@@ -18,6 +18,7 @@ namespace MStore.Models
         public Album()
         {
             this.OrderDetails = new HashSet<OrderDetail>();
+            this.Carts = new HashSet<Cart>();
         }
     
         public int AlbumID { get; set; }
@@ -32,5 +33,7 @@ namespace MStore.Models
         public virtual Genre1 Genre1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Cart> Carts { get; set; }
     }
 }

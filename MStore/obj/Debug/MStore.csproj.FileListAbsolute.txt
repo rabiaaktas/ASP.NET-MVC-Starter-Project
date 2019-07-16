@@ -84,3 +84,12 @@ C:\Users\STAJYER\source\repos\MStore\MStore\obj\Debug\MStore.Resources.lang.reso
 C:\Users\STAJYER\source\repos\MStore\MStore\obj\Debug\MStore.Resources.lang.en.resources
 C:\Users\STAJYER\source\repos\MStore\MStore\obj\Debug\MStore.csproj.GenerateResource.cache
 C:\Users\STAJYER\source\repos\MStore\MStore\obj\Debug\en\MStore.resources.dll
+C:\Users\STAJYER\source\repos\MStore\MStore\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\STAJYER\source\repos\MStore\MStore\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\STAJYER\source\repos\MStore\MStore\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\STAJYER\source\repos\MStore\MStore\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\STAJYER\source\repos\MStore\MStore\bin\UAParser.dll
+C:\Users\STAJYER\source\repos\MStore\MStore\bin\WebStats.dll
+C:\Users\STAJYER\source\repos\MStore\MStore\bin\YamlDotNet.dll
+C:\Users\STAJYER\source\repos\MStore\MStore\bin\UAParser.xml
+C:\Users\STAJYER\source\repos\MStore\MStore\bin\YamlDotNet.pdb

@@ -37,6 +37,16 @@
     <Property Name="Name" Type="nchar" MaxLength="50" Nullable="false" />
     <Property Name="Description" Type="text" />
   </EntityType>
+  <EntityType Name="Kisi">
+    <Key>
+      <PropertyRef Name="kisiID" />
+    </Key>
+    <Property Name="kisiID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="Surname" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="Address" Type="ntext" />
+    <Property Name="phone" Type="nchar" MaxLength="10" />
+  </EntityType>
   <EntityType Name="Order">
     <Key>
       <PropertyRef Name="OrderID" />
@@ -65,15 +75,42 @@
     <Property Name="quantity" Type="int" Nullable="false" />
     <Property Name="unitPrice" Type="money" Nullable="false" />
   </EntityType>
-  <EntityType Name="personInf">
+  <EntityType Name="Rol">
     <Key>
-      <PropertyRef Name="personID" />
+      <PropertyRef Name="roleID" />
     </Key>
-    <Property Name="personID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="personName" Type="nchar" MaxLength="50" Nullable="false" />
-    <Property Name="Surname" Type="nchar" MaxLength="50" Nullable="false" />
-    <Property Name="address" Type="text" />
+    <Property Name="roleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="roleName" Type="nchar" MaxLength="50" Nullable="false" />
   </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="userId" />
+    </Key>
+    <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="username" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="password" Type="nchar" MaxLength="8" Nullable="false" />
+    <Property Name="kisiId" Type="int" />
+  </EntityType>
+  <EntityType Name="UserRoles">
+    <Key>
+      <PropertyRef Name="userRoleID" />
+    </Key>
+    <Property Name="userRoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userID" Type="int" Nullable="false" />
+    <Property Name="roleId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Cart__AlbumId__4F7CD00D">
+    <End Role="Album" Type="Self.Album" Multiplicity="1" />
+    <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Album">
+        <PropertyRef Name="AlbumID" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="AlbumId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Artist">
     <End Role="Artist" Type="Self.Artist" Multiplicity="1" />
     <End Role="Album" Type="Self.Album" Multiplicity="*" />
@@ -122,14 +159,45 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_User_Kisi">
+    <End Role="Kisi" Type="Self.Kisi" Multiplicity="0..1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kisi">
+        <PropertyRef Name="kisiID" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="kisiId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRoles_Rol">
+    <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+    <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rol">
+        <PropertyRef Name="roleID" />
+      </Principal>
+      <Dependent Role="UserRoles">
+        <PropertyRef Name="roleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="formdbModelStoreContainer">
     <EntitySet Name="Album" EntityType="Self.Album" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Artist" EntityType="Self.Artist" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Genre1" EntityType="Self.Genre1" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Kisi" EntityType="Self.Kisi" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="personInf" EntityType="Self.personInf" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Cart__AlbumId__4F7CD00D" Association="Self.FK__Cart__AlbumId__4F7CD00D">
+      <End Role="Album" EntitySet="Album" />
+      <End Role="Cart" EntitySet="Cart" />
+    </AssociationSet>
     <AssociationSet Name="FK_Artist" Association="Self.FK_Artist">
       <End Role="Artist" EntitySet="Artist" />
       <End Role="Album" EntitySet="Album" />
@@ -145,6 +213,14 @@
     <AssociationSet Name="FK_OrderDetail_Order" Association="Self.FK_OrderDetail_Order">
       <End Role="Order" EntitySet="Order" />
       <End Role="OrderDetail" EntitySet="OrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Kisi" Association="Self.FK_User_Kisi">
+      <End Role="Kisi" EntitySet="Kisi" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRoles_Rol" Association="Self.FK_UserRoles_Rol">
+      <End Role="Rol" EntitySet="Rol" />
+      <End Role="UserRoles" EntitySet="UserRoles" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

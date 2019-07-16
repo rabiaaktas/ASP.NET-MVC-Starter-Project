@@ -14,6 +14,7 @@
     <NavigationProperty Name="Artist" Relationship="Self.FK_Artist" FromRole="Album" ToRole="Artist" />
     <NavigationProperty Name="Genre1" Relationship="Self.FK_Genre" FromRole="Album" ToRole="Genre1" />
     <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetail_Album" FromRole="Album" ToRole="OrderDetail" />
+    <NavigationProperty Name="Carts" Relationship="formdbModel.FK__Cart__AlbumId__4F7CD00D" FromRole="Album" ToRole="Cart" />
   </EntityType>
   <EntityType Name="Artist">
     <Key>
@@ -32,6 +33,7 @@
     <Property Name="AlbumId" Type="Int32" Nullable="false" />
     <Property Name="count" Type="Int32" Nullable="false" />
     <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Album" Relationship="formdbModel.FK__Cart__AlbumId__4F7CD00D" FromRole="Cart" ToRole="Album" />
   </EntityType>
   <EntityType Name="Genre1">
     <Key>
@@ -72,15 +74,6 @@
     <Property Name="unitPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
     <NavigationProperty Name="Album" Relationship="Self.FK_OrderDetail_Album" FromRole="OrderDetail" ToRole="Album" />
     <NavigationProperty Name="Order" Relationship="Self.FK_OrderDetail_Order" FromRole="OrderDetail" ToRole="Order" />
-  </EntityType>
-  <EntityType Name="personInf">
-    <Key>
-      <PropertyRef Name="personID" />
-    </Key>
-    <Property Name="personID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="personName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
-    <Property Name="Surname" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
-    <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
   </EntityType>
   <Association Name="FK_Artist">
     <End Role="Artist" Type="Self.Artist" Multiplicity="1" />
@@ -137,7 +130,6 @@
     <EntitySet Name="Genre1" EntityType="Self.Genre1" />
     <EntitySet Name="Order" EntityType="Self.Order" />
     <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" />
-    <EntitySet Name="personInf" EntityType="Self.personInf" />
     <AssociationSet Name="FK_Artist" Association="Self.FK_Artist">
       <End Role="Artist" EntitySet="Artist" />
       <End Role="Album" EntitySet="Album" />
@@ -154,5 +146,113 @@
       <End Role="Order" EntitySet="Order" />
       <End Role="OrderDetail" EntitySet="OrderDetail" />
     </AssociationSet>
+    <AssociationSet Name="FK__Cart__AlbumId__4F7CD00D" Association="formdbModel.FK__Cart__AlbumId__4F7CD00D">
+      <End Role="Album" EntitySet="Album" />
+      <End Role="Cart" EntitySet="Cart" />
+    </AssociationSet>
+    <EntitySet Name="Users" EntityType="formdbModel.User" />
+    <EntitySet Name="Rol" EntityType="formdbModel.Rol" />
+    <EntitySet Name="UserRoles" EntityType="formdbModel.UserRoles" />
+    <AssociationSet Name="FK_UserRoles_Rol" Association="formdbModel.FK_UserRoles_Rol">
+      <End Role="Rol" EntitySet="Rol" />
+      <End Role="UserRoles" EntitySet="UserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRoles_User" Association="formdbModel.FK_UserRoles_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserRoles" EntitySet="UserRoles" />
+    </AssociationSet>
+    <EntitySet Name="Kisi" EntityType="formdbModel.Kisi" />
+    <AssociationSet Name="FK_User_Kisi" Association="formdbModel.FK_User_Kisi">
+      <End Role="Kisi" EntitySet="Kisi" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
   </EntityContainer>
+  <Association Name="FK__Cart__AlbumId__4F7CD00D">
+    <End Type="formdbModel.Album" Role="Album" Multiplicity="1" />
+    <End Type="formdbModel.Cart" Role="Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Album">
+        <PropertyRef Name="AlbumID" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="AlbumId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="userId" />
+    </Key>
+    <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="password" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="UserRoles" Relationship="formdbModel.FK_UserRoles_User" FromRole="User" ToRole="UserRoles" />
+    <Property Name="kisiId" Type="Int32" />
+    <NavigationProperty Name="Kisi" Relationship="formdbModel.FK_User_Kisi" FromRole="User" ToRole="Kisi" />
+  </EntityType>
+  <EntityType Name="Rol">
+    <Key>
+      <PropertyRef Name="roleID" />
+    </Key>
+    <Property Name="roleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="roleName" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="UserRoles" Relationship="formdbModel.FK_UserRoles_Rol" FromRole="Rol" ToRole="UserRoles" />
+  </EntityType>
+  <EntityType Name="UserRoles">
+    <Key>
+      <PropertyRef Name="userRoleID" />
+    </Key>
+    <Property Name="userRoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userID" Type="Int32" Nullable="false" />
+    <Property Name="roleId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Rol" Relationship="formdbModel.FK_UserRoles_Rol" FromRole="UserRoles" ToRole="Rol" />
+    <NavigationProperty Name="User" Relationship="formdbModel.FK_UserRoles_User" FromRole="UserRoles" ToRole="User" />
+  </EntityType>
+  <Association Name="FK_UserRoles_Rol">
+    <End Type="formdbModel.Rol" Role="Rol" Multiplicity="1" />
+    <End Type="formdbModel.UserRoles" Role="UserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rol">
+        <PropertyRef Name="roleID" />
+      </Principal>
+      <Dependent Role="UserRoles">
+        <PropertyRef Name="roleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRoles_User">
+    <End Type="formdbModel.User" Role="User" Multiplicity="1" />
+    <End Type="formdbModel.UserRoles" Role="UserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="UserRoles">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Kisi">
+    <Key>
+      <PropertyRef Name="kisiID" />
+    </Key>
+    <Property Name="kisiID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="phone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="User" Relationship="formdbModel.FK_User_Kisi" FromRole="Kisi" ToRole="User" />
+  </EntityType>
+  <Association Name="FK_User_Kisi">
+    <End Type="formdbModel.Kisi" Role="Kisi" Multiplicity="0..1" />
+    <End Type="formdbModel.User" Role="User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kisi">
+        <PropertyRef Name="kisiID" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="kisiId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>
