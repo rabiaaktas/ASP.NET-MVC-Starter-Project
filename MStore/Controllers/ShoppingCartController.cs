@@ -49,13 +49,13 @@ namespace MStore.Controllers
             return Json(removeModel);
         }
 
-        public ActionResult cartSummary()
+        [ChildActionOnly]
+        public ActionResult CartSummary()
         {
             var cart = ShoppingCart.GetCart(this.HttpContext);
             ViewData["cartCount"] = cart.GetCount();
-            return PartialView("cartSummary");
+            return PartialView("CartSummary");
         }
-
 
     }
 }

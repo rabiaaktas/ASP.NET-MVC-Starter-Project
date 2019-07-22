@@ -1,15 +1,23 @@
-﻿@{
+﻿@*@model MStore.Models.Genre1*@
+@*@model IEnumerable<MStore.Models.Album>*@
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Browse";
 }
 
 <h2>Browse</h2>
 @*<h2>browsing genre : @model.name</h2>*@
+@*<div class="genre">
+        <h3><em>
+        @Model.Name</em> Albums</h3>
+    </div>*@
+
+
 <ul>
     @foreach (var item in Model)
     {
-
-        <li>@item.Title</li>
+        <li>
+            <a href="@Url.Action("Details",new { id=item.AlbumID})"><span>@item.Title</span></a></li>
 
     }
 </ul>

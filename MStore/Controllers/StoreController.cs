@@ -148,6 +148,12 @@ namespace MStore.Controllers
             return RedirectToAction("Index","Store");
 
         }
+        [ChildActionOnly]
+        public ActionResult GenreMenu()
+        {
+            var genres = db.Genre1.ToList();
+            return PartialView(genres);
+        }
 
     }
 }

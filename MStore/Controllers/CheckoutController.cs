@@ -31,11 +31,13 @@ namespace MStore.Controllers
                 //}
                 //else
                 //{
+                    var cart = ShoppingCart.GetCart(this.HttpContext);
                     order.username = User.Identity.Name;
                     order.orderDate = DateTime.Now;
+                    order.total = cart.GetTotal();
                     db.Order.Add(order);
                     db.SaveChanges();
-                    var cart = ShoppingCart.GetCart(this.HttpContext);
+                   
                     cart.CreateOrder(order);
                     return RedirectToAction("Complete", new { id = order.OrderID });
                 //}

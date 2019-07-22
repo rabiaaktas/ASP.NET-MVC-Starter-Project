@@ -1,0 +1,17 @@
+﻿@*@model MStore.Models.Genre1*@
+@model IEnumerable<MStore.Models.Genre1>
+@{ 
+    <style>
+        #categories a {
+            color:brown;
+            text-decoration:none;
+        }
+    </style>
+}
+
+<ul id="categories">
+    @foreach (var item in Model)
+    {
+        <li>@Html.ActionLink(item.Name, "Browse", "Store", new { genre = @item.Name }, null)</li>
+    }
+</ul>

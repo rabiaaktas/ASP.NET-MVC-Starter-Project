@@ -24,6 +24,7 @@
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Store", "Index", "Store")</li>
+                    <li>@{Html.RenderAction("CartSummary", "ShoppingCart");}</li>
                     @if (!HttpContext.Current.User.Identity.IsAuthenticated)
                     {
                         <li>@Html.ActionLink("Login", "Login", "Account")</li>
@@ -39,6 +40,7 @@
             </div>
         </div>
     </div>
+    @*@{Html.RenderAction("GenreMenu", "Store");}*@   @*Çalşıyor -- Partial viewin sayfalarda görünmesi için gerekli*@
     <div class="container body-content">
         @RenderBody()
         <hr />

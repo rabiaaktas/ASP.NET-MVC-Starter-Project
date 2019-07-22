@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MStore.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +9,11 @@ namespace MStore.Controllers
 {
     public class HomeController : Controller
     {
+        private formdbEntities db = new formdbEntities();
         public ActionResult Index()
         {
-            return View();
+            var albums = getTopSellingAlbums(5);
+            return View(albums);
         }
        // [Authorize(Roles = "Admin")]
 
@@ -26,6 +29,12 @@ namespace MStore.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        private List<Album> getTopSellingAlbums(int count)
+        {
+            return db.Album.OrderByDescending(x => x.OrderDetails.Count())
+                .Take(count).ToList();
         }
     }
 }

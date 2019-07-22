@@ -8,6 +8,16 @@
     <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
     <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
+@if (Model.Count > 0)
+{
+    <ul class="top-selling">
+        @foreach (var item in Model)
+        {
+            <li><a><span>@item.Title</span></a></li>
+        }
+    </ul>
+}
+
 
 @*@using (Html.BeginForm(FormMethod.Post))
     {
